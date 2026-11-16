@@ -1,0 +1,19 @@
+body, #inner-body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body
+{
+    width: 100vw;
+}
+#inner-body
+{
+    width: 80vw;
+}
+
+#featured-movie
+{
+    width: 100%; height: auto;
+}
