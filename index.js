@@ -18,7 +18,8 @@ const resultGrid = document.querySelector(".grid-results");
 const resultTitle = document.getElementById("result-title");
 
 const SAVED_MOVIE = "savedMovie";
-let currentState = "search"; // search, top_rated, tv_series
+const SAVED_STATE = "savedState";
+let currentState = ""; // search, top_rated, tv_series
 
 class MOVIE_DATA
 {
@@ -34,15 +35,16 @@ document.addEventListener('DOMContentLoaded', () =>
 {
     if(window.location.pathname.includes('pages/results.html'))
     {
-        console.log("Current State: " + currentState);
-        if(currentState == "search")
+        const _currentState = getState();
+        console.log("Current State: " + _currentState);
+        if(_currentState == "search")
         {
             console.log("SEARCH");
             const _input = localStorage.getItem(SAVED_MOVIE);
             resultTitle.innerText = _input;
             getMovieByName(_input).then(data => renderMovieCards(data));
         }
-        if(currentState == "top_rated")
+        if(_currentState == "top_rated")
         {
             console.log("TOP RATED");
             resultTitle.innerText = "Top Rated";
@@ -57,7 +59,7 @@ function renderMovieCards(data)
     
     for(const movie of data.results)
     {
-        const _movieCardHTML = getCardHTML(movie.title, movie.backdrop_path, movie.release_date);
+        const _movieCardHTML = getCardHTML(movie.title, movie.backdrop_path, movie.release_date, movie.vote_average);
         resultGrid.insertAdjacentHTML("beforeend", _movieCardHTML);
     }
 }
@@ -107,8 +109,7 @@ function getMovieBannerURLByID(id)
 
 function goToTopMovies()
 {
-    console.log("Go To Top Movies");
-    currentState = "top_rated";
+    changeState("top_rated");
     if(window.location.pathname.includes('results.html'))
         window.location.reload();
     else
@@ -146,6 +147,7 @@ function searchMovie()
         }
     }
 
+    changeState("search");
     if(window.location.pathname.includes('index.html'))
     {
         if(movieInputField.value != "")
@@ -157,7 +159,6 @@ function searchMovie()
 
     movieInputFieldNav.value = "";
 
-    currentState = "search";
 
     goToResults();
 }
@@ -170,13 +171,25 @@ function goToResults()
         window.location.reload();
 }
 
-function getCardHTML(title, imageSrc, year)
+function getCardHTML(title, imageSrc, year, score)
 {
     return `<div class="result-container">
                 <div class="result-top">
                     <img src="https://image.tmdb.org/t/p/w500/${imageSrc}">
                     <p>${title}</p>
                 </div>
-                <div class="result-bottom">${year}</div>
+                <div class="result-bottom">
+                    <p>⭐${score.toFixed(1)}</p>
+                    <p>${year.split("-")[0]}</p>
+                </div>
             </div>`;
+}
+
+function changeState(state)
+{
+    localStorage.setItem(SAVED_STATE, state);
+}
+function getState()
+{
+    return localStorage.getItem(SAVED_STATE);
 }
