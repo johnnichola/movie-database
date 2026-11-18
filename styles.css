@@ -7,16 +7,43 @@ body, #inner-body
 }
 body
 {
+    background-color: #121e30;
+    font-family: Arial;
+    color: white;
     width: 100vw;
     height: 100vh;
 }
 #inner-body
 {
+    background-color: #1C2028;
     width: 80vw;
+    height: 100%;
+}
+
+.center-panel
+{
     text-align: center;
 }
 
 #featured-movie
 {
     width: auto; height: 100vh;
+}
+
+input[type="text"], input[type="submit"]
+{
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+input[type="text"]
+{
+    width: 50%;
+}
+input[type="submit"]
+{
+    width: 20%;
+    background-color: #05B7CF;
 }
