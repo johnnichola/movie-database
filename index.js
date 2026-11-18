@@ -61,4 +61,9 @@ function getMovieBannerURLByID(id)
         .catch(err => console.error(err));
 }
 
-getMovieBannerURLByID(1003596).then(url => {featuredMovie.src = url;});
+function searchMovie(title)
+{
+    
+}
+
+// getMoviePosterURLByID(1003596).then(url => {featuredMovie.src = url;});

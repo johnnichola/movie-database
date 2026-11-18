@@ -8,8 +8,14 @@
 </head>
 <body>
     <div id="inner-body">
-
-        <img id="featured-movie" src="" alt="Featured Movie">
+        <div id="search-panel">
+            <h1>MovieDB - A Movie Database</h1>
+            <p>Search HD movies, TV shows, new releases, and top IMDb titles in one clean place</p>
+            <form action="/submit-data" method="POST">
+                <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </div>
 
     <script src="index.js" defer></script>
