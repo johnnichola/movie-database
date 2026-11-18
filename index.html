@@ -10,16 +10,16 @@
     <nav>
         <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; width: 50%;">
             <h1>LOGO</h1>
-            <div style="display: flex; flex-direction: row; gap: 20px;">
-                <p>Home</p>
-                <p>Top Movies</p>
-                <p>TV Series</p>
+            <div class="nav-buttons" style="display: flex; flex-direction: row; gap: 20px;">
+                <button>Home</button>
+                <button onclick="goToTopMovies()">Top Moviess</button>
+                <button>TV Series</button>
             </div>
         </div>
         <div style="width: 50%;">
-            <form style="width: 100%; display: flex; justify-content: flex-end; align-items: center" class="search-form" action="/submit-data" method="POST">
+            <form style="width: 100%; display: flex; justify-content: flex-end; align-items: center" class="search-form">
                 <input type="text" id="movieFieldNav" name="username" placeholder="Enter movies or a series name">
-                <button class="submit-button" onclick="searchMovie()" style="font-weight: bold;">Search</button>
+                <button type="button" class="submit-button" onclick="searchMovie()" style="font-weight: bold;">Search</button>
             </form>
         </div>
     </nav>

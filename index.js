@@ -14,8 +14,11 @@ const OPTIONS = {
 const featuredMovie = document.getElementById('featured-movie');
 const movieInputField = document.getElementById('movieField');
 const movieInputFieldNav = document.getElementById('movieFieldNav');
+const resultGrid = document.querySelector(".grid-results");
+const resultTitle = document.getElementById("result-title");
 
 const SAVED_MOVIE = "savedMovie";
+let currentState = "search"; // search, top_rated, tv_series
 
 class MOVIE_DATA
 {
@@ -31,11 +34,33 @@ document.addEventListener('DOMContentLoaded', () =>
 {
     if(window.location.pathname.includes('pages/results.html'))
     {
-        return;
-        console.log(`Loaded HTML\nSaved Movie: ${localStorage.getItem(SAVED_MOVIE)}`);
-        getMovieByName(localStorage.getItem(SAVED_MOVIE));
+        console.log("Current State: " + currentState);
+        if(currentState == "search")
+        {
+            console.log("SEARCH");
+            const _input = localStorage.getItem(SAVED_MOVIE);
+            resultTitle.innerText = _input;
+            getMovieByName(_input).then(data => renderMovieCards(data));
+        }
+        if(currentState == "top_rated")
+        {
+            console.log("TOP RATED");
+            resultTitle.innerText = "Top Rated";
+            getTopMovies().then(data => renderMovieCards(data));
+        }
     }
 });
+
+function renderMovieCards(data)
+{
+    if(!data || !data.results) return;
+    
+    for(const movie of data.results)
+    {
+        const _movieCardHTML = getCardHTML(movie.title, movie.backdrop_path, movie.release_date);
+        resultGrid.insertAdjacentHTML("beforeend", _movieCardHTML);
+    }
+}
 
 function getMovieByID(id)
 {
@@ -49,7 +74,12 @@ function getMovieByName(title)
 {
     return fetch(`https://api.themoviedb.org/3/search/movie?query=${title}`, OPTIONS)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => 
+            {
+                console.log(data);
+                return data;
+            }
+        )  
         .catch(err => console.error(err));
 }
 
@@ -75,23 +105,78 @@ function getMovieBannerURLByID(id)
         .catch(err => console.error(err));
 }
 
+function goToTopMovies()
+{
+    console.log("Go To Top Movies");
+    currentState = "top_rated";
+    if(window.location.pathname.includes('results.html'))
+        window.location.reload();
+    else
+        window.location.href = 'pages/results.html';
+}
+
+function getTopMovies()
+{
+    return fetch(`https://api.themoviedb.org/3/movie/top_rated`, OPTIONS)
+        .then(response => response.json())
+        .then(data =>
+        {
+            console.log(data);
+            return data;
+        })
+        .catch(err => console.error(err));
+}
+
 function searchMovie()
 {
-    if(movieInputField.value == "" && movieInputFieldNav.value == "")
+    if(window.location.pathname.includes('index.html'))
     {
-        alert("Enter a Movie or TV Series");
-        return;
+        if(movieInputField.value == "" && movieInputFieldNav.value == "")
+        {
+            alert("Enter a Movie or TV Series");
+            return;
+        }
+    }
+    else
+    {
+        if(movieInputFieldNav.value == "")
+        {
+            alert("Enter a Movie or TV Series");
+            return;
+        }
     }
 
-    if(movieInputField.value != "")
-        localStorage.setItem(SAVED_MOVIE, movieInputField.value);
+    if(window.location.pathname.includes('index.html'))
+    {
+        if(movieInputField.value != "")
+            localStorage.setItem(SAVED_MOVIE, movieInputField.value);
+        movieInputField.value = "";
+    }
     if(movieInputFieldNav.value != "")
         localStorage.setItem(SAVED_MOVIE, movieInputFieldNav.value);
 
-    movieInputField.value = "";
     movieInputFieldNav.value = "";
 
-    window.location.href = "pages/results.html";
+    currentState = "search";
+
+    goToResults();
 }
 
-// getMoviePosterURLByID(1003596).then(url => {featuredMovie.src = url;});
+function goToResults()
+{
+    window.location.href = "pages/results.html";
+    
+    if(window.location.pathname.includes('pages/results.html'))
+        window.location.reload();
+}
+
+function getCardHTML(title, imageSrc, year)
+{
+    return `<div class="result-container">
+                <div class="result-top">
+                    <img src="https://image.tmdb.org/t/p/w500/${imageSrc}">
+                    <p>${title}</p>
+                </div>
+                <div class="result-bottom">${year}</div>
+            </div>`;
+}

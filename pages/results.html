@@ -10,17 +10,17 @@
     <nav>
         <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; width: 50%;">
             <h1>LOGO</h1>
-            <div style="display: flex; flex-direction: row; gap: 20px;">
-                <p>Home</p>
-                <p>Top Movies</p>
-                <p>TV Series</p>
+            <div class="nav-buttons" style="display: flex; flex-direction: row; gap: 20px;">
+                <button onclick="window.location.href='../index.html'">Home</button>
+                <button>Top Movies</button>
+                <button>TV Series</button>
             </div>
         </div>
         <div style="width: 50%;">
-            <form style="width: 100%; display: flex; justify-content: flex-end;" class="search-form" action="/submit-data" method="POST">
-                    <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
-                    <input type="submit" value="Search" style="font-weight: bold;">
-                </form>
+            <form style="width: 100%; display: flex; justify-content: flex-end; align-items: center" class="search-form">
+                <input type="text" id="movieFieldNav" name="username" placeholder="Enter movies or a series name">
+                <button type="button" class="submit-button" onclick="searchMovie()" style="font-weight: bold;">Search</button>
+            </form>
         </div>
     </nav>
 
@@ -33,13 +33,6 @@
                 <h3 style="color: #05B7CF">SEARCH MOVIES AND TV SERIES</h3>
             </div>
             <div class="grid-results">
-
-                <div class="result-container">
-                    <div style="width: 100%; height: 80%; background-color: white"></div>
-                    <div style="width: 100%; height: 20%; background-color: rgb(115, 37, 37)"></div>
-                    <p>Avengers: Doomsday</p>
-                </div>
-
             </div>
         </div>
     </div>

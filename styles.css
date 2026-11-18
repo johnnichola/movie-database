@@ -1,7 +1,12 @@
-
+:root
+{
+    --header-text-color: white;
+    --secondary-text-color: #BEC3CC;
+    --background-color: #1C2028;
+}
 body
 {
-    background-color: #1C2028;
+    background-color: var(--background-color);
     font-family: Arial;
     color: white;
     width: 100vw;
@@ -15,6 +20,17 @@ nav
     width: 90vw;
     box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 }
+
+nav button
+{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: var(--secondary-text-color);
+    font: inherit;
+    cursor: pointer;
+}
+
 #center-body
 {
     display: flex;
@@ -28,14 +44,14 @@ nav
 }
 #inner-body
 {
-    background-color: #1C2028;
+    background-color: var(--background-color);
     width: 80vw;
     height: 100%;
 }
 
 p, ul li
 {
-    color: #BEC3CC;
+    color: var(--secondary-text-color);
 }
 
 .center-panel
@@ -64,28 +80,59 @@ form button
 {
     width: 20%; height: 60px;
     background-color: #05B7CF;
+    color: black;
 }
 
 .grid-results
 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
 }
 
 .result-container
 {
     width: 164px; height: 246px;
-    background-color: rgb(47, 49, 121);
     display: grid;
+    grid-template-rows: 80% 20%;
+}
+.result-top, .result-bottom
+{
+    width: 100%;
+}
+.result-top
+{
+    display: grid;
+    overflow: hidden;
+}
+.result-top
+{
+    position: relative;
+}
+.result-top p
+{
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
     box-sizing: border-box;
-    align-items: end;
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+    font-weight: bold;
+    margin: 0; padding: 4px;
+    text-align: center;
+}
+.result-bottom
+{
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.result-container p 
+.result-top img
 {
-    color: white;
-    font-weight: bold;
-    margin: 0; padding: 3px;
-    text-align: center;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
 }
