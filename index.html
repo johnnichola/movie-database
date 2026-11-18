@@ -17,10 +17,10 @@
             </div>
         </div>
         <div style="width: 50%;">
-            <form style="width: 100%; display: flex; justify-content: flex-end;" class="search-form" action="/submit-data" method="POST">
-                    <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
-                    <input type="submit" value="Search" style="font-weight: bold;">
-                </form>
+            <form style="width: 100%; display: flex; justify-content: flex-end; align-items: center" class="search-form" action="/submit-data" method="POST">
+                <input type="text" id="movieFieldNav" name="username" placeholder="Enter movies or a series name">
+                <button class="submit-button" onclick="searchMovie()" style="font-weight: bold;">Search</button>
+            </form>
         </div>
     </nav>
     <div id="center-body">
@@ -29,9 +29,9 @@
                 <div class="center-panel">
                     <h1>MovieDB - A Movie Database</h1>
                     <p>Search HD movies, TV shows, new releases, and top IMDb titles in one clean place</p>
-                    <form class="search-form" action="/submit-data" method="POST">
-                        <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
-                        <input type="submit" value="Search" style="font-weight: bold;">
+                    <form class="search-form">
+                        <input type="text" id="movieField" name="username" placeholder="Enter movies or a series name">
+                        <button type="button" class="submit-button" onclick="searchMovie()" style="font-weight: bold;">Search</button>
                     </form>
                 </div>
     
