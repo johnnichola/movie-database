@@ -7,32 +7,50 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="inner-body">
-        <div id="search-panel">
-            <div class="center-panel">
-                <h1>MovieDB - A Movie Database</h1>
-                <p style="color: #BEC3CC">Search HD movies, TV shows, new releases, and top IMDb titles in one clean place</p>
-                <form class="search-form" action="/submit-data" method="POST">
-                    <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
-                    <input type="submit" value="Submit" style="font-weight: bold;">
-                </form>
+    <nav>
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; width: 50%;">
+            <h1>LOGO</h1>
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <p>Home</p>
+                <p>Top Movies</p>
+                <p>TV Series</p>
             </div>
-
-            <h2 style="color: #05B7CF">What is MovieDB?</h2>
-            <p style="color: #BEC3CC">
-                <b>MovieDB</b> is an IDT built movie and TV database. Every piece of data is from an API called The Movie Database (TMBb).
-                MovieDB's strong international focus and breadth of data is largely unmatched and something we're incredibly proud of.
-                Put simply, we live and breathe community and that's precisely what makes us different.
-            </p>
-
-            <h2 style="color: #05B7CF">Why Choose MovieDB?</h2>
-            <ul style="color: #BEC3CC">
-                <li>Browse movies and TV shows without creating an account, entering payment details, or installing an app.</li>
-                <li>Find movies, new releases, top IMDb titles, classic, and popular films in one place.</li>
-                <li>Explore TV series pages with seasons, episodes, and title details.</li>
-                <li>Browse on phones, tablets, laptops, desktops, and smart TV browsers.</li>
-                <li>Browse new releases, trending movies, popular TV shows, and fresh title pages.</li>
-            </ul>
+        </div>
+        <div style="width: 50%;">
+            <form style="width: 100%; display: flex; justify-content: flex-end;" class="search-form" action="/submit-data" method="POST">
+                    <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
+                    <input type="submit" value="Search" style="font-weight: bold;">
+                </form>
+        </div>
+    </nav>
+    <div id="center-body">
+        <div id="inner-body">
+            <div id="search-panel">
+                <div class="center-panel">
+                    <h1>MovieDB - A Movie Database</h1>
+                    <p>Search HD movies, TV shows, new releases, and top IMDb titles in one clean place</p>
+                    <form class="search-form" action="/submit-data" method="POST">
+                        <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
+                        <input type="submit" value="Search" style="font-weight: bold;">
+                    </form>
+                </div>
+    
+                <h2 style="color: #05B7CF">What is MovieDB?</h2>
+                <p>
+                    <b>MovieDB</b> is an IDT built movie and TV database. Every piece of data is from an API called The Movie Database (TMBb).
+                    MovieDB's strong international focus and breadth of data is largely unmatched and something we're incredibly proud of.
+                    Put simply, we live and breathe community and that's precisely what makes us different.
+                </p>
+    
+                <h2 style="color: #05B7CF">Why Choose MovieDB?</h2>
+                <ul>
+                    <li>Browse movies and TV shows without creating an account, entering payment details, or installing an app.</li>
+                    <li>Find movies, new releases, top IMDb titles, classic, and popular films in one place.</li>
+                    <li>Explore TV series pages with seasons, episodes, and title details.</li>
+                    <li>Browse on phones, tablets, laptops, desktops, and smart TV browsers.</li>
+                    <li>Browse new releases, trending movies, popular TV shows, and fresh title pages.</li>
+                </ul>
+            </div>
         </div>
     </div>
 

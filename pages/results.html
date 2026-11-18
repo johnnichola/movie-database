@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav>
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; width: 50%;">
+            <h1>LOGO</h1>
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <p>Home</p>
+                <p>Top Movies</p>
+                <p>TV Series</p>
+            </div>
+        </div>
+        <div style="width: 50%;">
+            <form style="width: 100%; display: flex; justify-content: flex-end;" class="search-form" action="/submit-data" method="POST">
+                    <input type="text" id="username" name="username" placeholder="Enter movies or a series name">
+                    <input type="submit" value="Search" style="font-weight: bold;">
+                </form>
+        </div>
+    </nav>
+
+    <div id="center-body">
+        <div id="inner-body">
+            <div style="display: flex; justify-content: start; flex-direction: column; width: 100%; height: 100%;">
+                <h1>Search Movies and TV Series</h1>
+                <p>Search results for "<span id="result-title">movie title</span>"</p>
+        
+                <h3 style="color: #05B7CF">SEARCH MOVIES AND TV SERIES</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
