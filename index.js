@@ -19,7 +19,7 @@ const resultTitle = document.getElementById("result-title");
 
 const SAVED_MOVIE = "savedMovie";
 const SAVED_STATE = "savedState";
-let currentState = ""; // search, top_rated, tv_series
+let currentState = "search"; // search, top_rated, tv_series
 
 class MOVIE_DATA
 {
@@ -30,6 +30,14 @@ class MOVIE_DATA
     overview = '';
     release_date = '';
 }
+
+if(getState() == null || getState() == "")
+{
+    console.log("No State Saved, changing state to search...");
+    changeState("search");
+}
+
+console.log(`Current Saved State: ${getState()}`);
 
 document.addEventListener('DOMContentLoaded', () => 
 {
@@ -110,10 +118,7 @@ function getMovieBannerURLByID(id)
 function goToTopMovies()
 {
     changeState("top_rated");
-    if(window.location.pathname.includes('results.html'))
-        window.location.reload();
-    else
-        window.location.href = 'pages/results.html';
+    goToResults();
 }
 
 function getTopMovies()
@@ -130,6 +135,7 @@ function getTopMovies()
 
 function searchMovie()
 {
+    //#region input field checker
     if(window.location.pathname.includes('index.html'))
     {
         if(movieInputField.value == "" && movieInputFieldNav.value == "")
@@ -146,29 +152,31 @@ function searchMovie()
             return;
         }
     }
+    //#endregion
 
     changeState("search");
     if(window.location.pathname.includes('index.html'))
     {
         if(movieInputField.value != "")
-            localStorage.setItem(SAVED_MOVIE, movieInputField.value);
+            changeSavedMovie(movieInputField.value);
         movieInputField.value = "";
     }
     if(movieInputFieldNav.value != "")
-        localStorage.setItem(SAVED_MOVIE, movieInputFieldNav.value);
+        changeSavedMovie(movieInputFieldNav.value);
 
     movieInputFieldNav.value = "";
-
 
     goToResults();
 }
 
 function goToResults()
 {
-    window.location.href = "pages/results.html";
-    
     if(window.location.pathname.includes('pages/results.html'))
+    {
         window.location.reload();
+        return;
+    }
+    window.location.href = "pages/results.html";
 }
 
 function getCardHTML(title, imageSrc, year, score)
@@ -180,6 +188,7 @@ function getCardHTML(title, imageSrc, year, score)
                 </div>
                 <div class="result-bottom">
                     <p>⭐${score.toFixed(1)}</p>
+                    <p>|</p>
                     <p>${year.split("-")[0]}</p>
                 </div>
             </div>`;
@@ -188,8 +197,18 @@ function getCardHTML(title, imageSrc, year, score)
 function changeState(state)
 {
     localStorage.setItem(SAVED_STATE, state);
+    console.log(`Change State to ${state} || Saved State: ${getState()}`);
 }
 function getState()
 {
     return localStorage.getItem(SAVED_STATE);
+}
+
+function changeSavedMovie(title)
+{
+    localStorage.setItem(SAVED_MOVIE, title);
+}
+function getSavedMovie()
+{
+    return localStorage.getItem(SAVED_MOVIE);
 }
