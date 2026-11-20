@@ -11,6 +11,8 @@ body
     color: white;
     width: 100vw;
     height: 100vh;
+
+    position: relative;
 }
 nav
 {
@@ -136,4 +138,51 @@ form button
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.popout-block
+{
+    position: absolute;
+    background-color: rgba(0,0,0,0.6);
+    inset: 0;
+    height: 100%;
+}
+.popout-innerblock
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%; height: 100%;
+    gap: 10px;
+}
+.popout-inner-left
+{
+    width: 40%; height: 100%;
+    overflow: hidden;
+}
+.popout-inner-left img
+{
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.popout-inner-right
+{
+    width: 60%; height: 100%;
+}
+.popout-exit
+{
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+.popout-exit button
+{
+    width: 40px; height: 40px;
+    container-type: inline-size;
+    font-size: clamp(0.85rem, 12cqw, 2rem);
+    background: transparent;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }

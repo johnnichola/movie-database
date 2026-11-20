@@ -14,6 +14,7 @@ const OPTIONS = {
 const featuredMovie = document.getElementById('featured-movie');
 const movieInputField = document.getElementById('movieField');
 const movieInputFieldNav = document.getElementById('movieFieldNav');
+const popout = document.getElementById('popout');
 const resultGrid = document.querySelector(".grid-results");
 const resultTitle = document.getElementById("result-title");
 
@@ -31,6 +32,7 @@ class MOVIE_DATA
     release_date = '';
 }
 
+console.log(getMovieByID(550));
 if(getState() == null || getState() == "")
 {
     console.log("No State Saved, changing state to search...");
@@ -67,8 +69,17 @@ function renderMovieCards(data)
     
     for(const movie of data.results)
     {
-        const _movieCardHTML = getCardHTML(movie.title, movie.backdrop_path, movie.release_date, movie.vote_average);
+        const _movieCardHTML = getCardHTML(movie.title, movie.poster_path, movie.release_date, movie.vote_average, movie.overview);
         resultGrid.insertAdjacentHTML("beforeend", _movieCardHTML);
+        
+        resultGrid.addEventListener("click", (event) =>
+        {
+            const _card = event.target.closest(".result-container");
+            if(!_card) return;
+
+            const {title, img, year, score, desc} = _card.dataset;
+            showPopout(title, img, year, score, desc);
+        });
     }
 }
 
@@ -179,9 +190,17 @@ function goToResults()
     window.location.href = "pages/results.html";
 }
 
-function getCardHTML(title, imageSrc, year, score)
+function getCardHTML(title, imageSrc, year, score, desc)
 {
-    return `<div class="result-container">
+    const _safeTitle = title.replace(/"/g, "&quot;");
+    const _safeDesc = desc.replace(/"/g, "&quot;");
+
+    return `<a href="#" class="result-container"
+                data-title="${_safeTitle}"
+                data-img=${imageSrc}"
+                data-year=${year}"
+                data-score="${score.toFixed(1)}"
+                data-desc="${_safeDesc}">
                 <div class="result-top">
                     <img src="https://image.tmdb.org/t/p/w500/${imageSrc}">
                     <p>${title}</p>
@@ -191,7 +210,39 @@ function getCardHTML(title, imageSrc, year, score)
                     <p>|</p>
                     <p>${year.split("-")[0]}</p>
                 </div>
-            </div>`;
+            </a>`;    
+}
+
+function showPopout(title, imageSrc, date, score, desc)
+{
+    const _popoutHTML =  `<div class="popout-block">
+                            <div id="center-body">
+                                <div class="popout-exit">
+                                    <button onclick="closePopout()">X</button>
+                                </div>
+                                <div id="inner-body" style="height: 80%; width: 80%;">
+                                    <div class="popout-innerblock">
+                    
+                                        <div class="popout-inner-left">
+                                            <img src="https://image.tmdb.org/t/p/w500/${imageSrc}" alt="${title}">
+                                        </div>
+                    
+                                        <div class="popout-inner-right">
+                                            <h1>${title}</h1>
+                                            <p>${date} | ⭐${score}</p>
+                                            <p>${desc}</p>
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+    popout.innerHTML = "";
+    popout.insertAdjacentHTML("beforeend", _popoutHTML);
+}
+function closePopout()
+{
+    popout.innerHTML = "";
 }
 
 function changeState(state)
