@@ -20,7 +20,7 @@ const resultTitle = document.getElementById("result-title");
 
 const SAVED_MOVIE = "savedMovie";
 const SAVED_STATE = "savedState";
-let currentState = "search"; // search, top_rated, tv_series
+let currentState = "search"; // search, top_rated, top_series
 
 class MOVIE_DATA
 {
@@ -58,7 +58,13 @@ document.addEventListener('DOMContentLoaded', () =>
         {
             console.log("TOP RATED");
             resultTitle.innerText = "Top Rated";
-            getTopMovies().then(data => renderMovieCards(data));
+            getTopByType("movie").then(data => renderMovieCards(data));
+        }
+        if(_currentState == "top_series")
+        {
+            console.log("TOP SERIES");
+            resultTitle.innerText = "Top TV Series";
+            getTopByType("tv").then(data => renderMovieCards(data));
         }
     }
 });
@@ -66,10 +72,16 @@ document.addEventListener('DOMContentLoaded', () =>
 function renderMovieCards(data)
 {
     if(!data || !data.results) return;
-    
+    const _currentState = getState();
+
     for(const movie of data.results)
     {
-        const _movieCardHTML = getCardHTML(movie.title, movie.poster_path, movie.release_date, movie.vote_average, movie.overview);
+        let _movieCardHTML;
+        if(_currentState == "top_rated" || _currentState == "search")
+            _movieCardHTML = getCardHTML(movie.title, movie.poster_path, movie.release_date, movie.vote_average, movie.overview);
+        else if(_currentState == "top_series")
+            _movieCardHTML = getCardHTML(movie.name, movie.poster_path, movie.first_air_date, movie.vote_average, movie.overview);
+        
         resultGrid.insertAdjacentHTML("beforeend", _movieCardHTML);
         
         resultGrid.addEventListener("click", (event) =>
@@ -132,9 +144,15 @@ function goToTopMovies()
     goToResults();
 }
 
-function getTopMovies()
+function goToTopSeries()
 {
-    return fetch(`https://api.themoviedb.org/3/movie/top_rated`, OPTIONS)
+    changeState("top_series");
+    goToResults();
+}
+
+function getTopByType(entertainmentType)
+{
+    return fetch(`https://api.themoviedb.org/3/${entertainmentType}/top_rated`, OPTIONS)
         .then(response => response.json())
         .then(data =>
         {
