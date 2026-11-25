@@ -12,7 +12,6 @@ const OPTIONS = {
 // get movie image url with image.tmdb.org/t/p/w500/<poster_path>
 
 const featuredMovie = document.getElementById('featured-movie');
-const movieInputField = document.getElementById('movieField');
 const movieInputFieldNav = document.getElementById('movieFieldNav');
 const popout = document.getElementById('popout');
 const resultGrid = document.querySelector(".grid-results");
@@ -164,31 +163,14 @@ function getTopByType(entertainmentType)
 function searchMovie()
 {
     //#region input field checker
-    if(window.location.pathname.includes('index.html'))
+    if(movieInputFieldNav.value == "")
     {
-        if(movieInputField.value == "" && movieInputFieldNav.value == "")
-        {
-            alert("Enter a Movie or TV Series");
-            return;
-        }
-    }
-    else
-    {
-        if(movieInputFieldNav.value == "")
-        {
-            alert("Enter a Movie or TV Series");
-            return;
-        }
+        alert("Enter a Movie or TV Series");
+        return;
     }
     //#endregion
 
     changeState("search");
-    if(window.location.pathname.includes('index.html'))
-    {
-        if(movieInputField.value != "")
-            changeSavedMovie(movieInputField.value);
-        movieInputField.value = "";
-    }
     if(movieInputFieldNav.value != "")
         changeSavedMovie(movieInputFieldNav.value);
 
