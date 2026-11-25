@@ -32,7 +32,6 @@ class MOVIE_DATA
     release_date = '';
 }
 
-console.log(getMovieByID(550));
 if(getState() == null || getState() == "")
 {
     console.log("No State Saved, changing state to search...");
@@ -281,3 +280,4 @@ function getSavedMovie()
 {
     return localStorage.getItem(SAVED_MOVIE);
 }
+

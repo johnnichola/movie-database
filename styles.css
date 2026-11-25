@@ -48,7 +48,6 @@ nav button
 {
     background-color: var(--background-color);
     width: 80vw; height: 100%;
-    /* max-width: 500px; */
 }
 
 p, ul li
@@ -149,29 +148,34 @@ form button
 }
 .popout-innerblock
 {
-    display: flex;
-    flex-direction: row;
-    width: 100%; height: 100%;
+    display: grid;
+    width: fit-content;
     gap: 8px;
     justify-content: center;
 }
 .popout-inner-left
 {
-    width: 60%; height: 100%;
+    height: 100%;
     overflow: hidden;
+}
+.popout-inner-left img, .popout-inner-right
+{
+    grid-area: 1/1;
 }
 .popout-inner-left img
 {
-    width: 100%; height: 100%;
-    object-fit: contain;
     display: block;
+    max-width: 100%;
+    height: auto;
 }
 .popout-inner-right
 {
-    width: 40%; height: 100%;
     display: flex;
-    align-items: start;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-direction: column;
+    padding: 20px;
+    color: white;
 }
 .popout-block #center-body #inner-body
 {
